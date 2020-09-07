@@ -15,7 +15,7 @@ const MessageMiddleWare = () => next => action => {
   next(action);
 
   if (action.type === ON_MESSAGE) {
-    const { text } = action.payload;
+    const { text, sender } = action.payload;
     client.textRequest(text).then(onSuccess);
 
     function onSuccess(response) {
@@ -27,7 +27,7 @@ const MessageMiddleWare = () => next => action => {
   }
 };
 
-const initState = [{ text: "hey" }];
+const initState = [{ sender: "bot", text: "hey" }];
 
 const messageReducer = (state = initState, action) => {
   switch (action.type) {

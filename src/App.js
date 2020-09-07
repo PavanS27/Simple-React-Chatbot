@@ -5,16 +5,22 @@ import { sendMessage } from "./Chat";
 class App extends Component {
   render() {
     const { feed, sendMessage } = this.props;
+
     return (
       <div className="App">
         <h1>Hello Bot!</h1>
+
         <ul>
           {feed.map(entry => (
-            <li>{entry.text}</li>
+            <div>
+              <h4>
+                {entry.sender} : {entry.text}
+              </h4>
+            </div>
           ))}
         </ul>
         <input
-          tyoe="text"
+          type="text"
           onKeyDown={e =>
             e.keyCode === 13 ? sendMessage(e.target.value) : null
           }
@@ -28,7 +34,4 @@ const mapStateToProps = state => ({
   feed: state
 });
 
-export default connect(
-  mapStateToProps,
-  { sendMessage }
-)(App);
+export default connect(mapStateToProps, { sendMessage })(App);
